@@ -2,6 +2,7 @@ package com.justforfun.DarkCalculator;
 
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Spannable;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
@@ -48,6 +50,8 @@ public class MainActivity extends BaseActivity {
     private DrawerLayout drawer;
     private ArrayList<View> drawerPageList;
     public FrameLayout delete;
+    private static final int TIME_EXIT = 2000;
+    private long mBackPressed;
 
     private static final int[] XX = {1, 3, 1, 3};
     private static final int[] YY = {6, 4, 5, 5};
@@ -584,12 +588,17 @@ public class MainActivity extends BaseActivity {
             drawerPager.setCurrentItem(0);
             drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.END);
             drawer.closeDrawer(GravityCompat.END);
-            return;
         } else if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-            return;
+        } else {
+            if (mBackPressed + TIME_EXIT > System.currentTimeMillis()) {
+                super.onBackPressed();
+            } else {
+                Toast.makeText(this, "再点击一次返回退出程序", Toast.LENGTH_SHORT).show();
+                mBackPressed = System.currentTimeMillis();
+            }
         }
-        super.onBackPressed();
+        return;
     }
 
     @Override
@@ -606,6 +615,14 @@ public class MainActivity extends BaseActivity {
                     drawer.openDrawer(GravityCompat.START);
                 break;
         }
+        return true;
+    }
+
+    public static void actionStart(Context context) {
+        context.startActivity(new Intent(context, MainActivity.class));
+    }
+
+    public boolean checkUpdate() {
         return true;
     }
 }
