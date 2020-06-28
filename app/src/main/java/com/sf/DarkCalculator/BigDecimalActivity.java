@@ -3,9 +3,10 @@ package com.sf.DarkCalculator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.EditText;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.math.BigDecimal;
 
