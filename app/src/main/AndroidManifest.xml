@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sf.DarkCalculator">
+    package="com.justforfun.DarkCalculator">
 
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.justforfun.DarkCalculator.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize">
@@ -17,22 +17,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ResultsActivity"
+            android:name="com.justforfun.DarkCalculator.ResultsActivity"
             android:label="运算结果" />
         <activity
-            android:name=".CapitalMoneyActivity"
+            android:name="com.justforfun.DarkCalculator.CapitalMoneyActivity"
             android:label="大写数字"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".BigDecimalActivity"
+            android:name="com.justforfun.DarkCalculator.BigDecimalActivity"
             android:label="大数运算"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".BaseConversionActivity"
+            android:name="com.justforfun.DarkCalculator.BaseConversionActivity"
             android:label="进制转换"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AboutActivity"
+            android:name="com.justforfun.DarkCalculator.AboutActivity"
             android:screenOrientation="portrait" />
     </application>
 

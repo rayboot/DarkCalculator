@@ -1,4 +1,4 @@
-package com.sf.DarkCalculator;
+package com.justforfun.DarkCalculator;
 
 import java.util.HashMap;
 import java.util.Map;

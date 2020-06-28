@@ -1,4 +1,4 @@
-package com.sf.ExpressionHandler;
+package com.justforfun.ExpressionHandler;
 
 import java.util.HashMap;
 import java.util.Map;

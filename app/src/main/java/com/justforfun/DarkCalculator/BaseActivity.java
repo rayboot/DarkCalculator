@@ -1,4 +1,4 @@
-package com.sf.DarkCalculator;
+package com.justforfun.DarkCalculator;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.sf.DarkCalculator;
+package com.justforfun.DarkCalculator;
 
 import android.view.LayoutInflater;
 import android.view.View;

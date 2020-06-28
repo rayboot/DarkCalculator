@@ -1,4 +1,4 @@
-package com.sf.DarkCalculator;
+package com.justforfun.DarkCalculator;
 
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -27,8 +27,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
-import com.sf.ExpressionHandler.Constants;
-import com.sf.ExpressionHandler.ExpressionHandler;
+import com.justforfun.ExpressionHandler.Constants;
+import com.justforfun.ExpressionHandler.ExpressionHandler;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
