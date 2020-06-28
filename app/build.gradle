@@ -1,13 +1,21 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        sign {
+            storeFile file("${rootProject.rootDir}/sign/sign.jks")
+            storePassword '1234rewq'
+            keyAlias 'forfun'
+            keyPassword '1234rewq'
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion '29.0.3'
     defaultConfig {
         applicationId "com.justforfun.DarkCalculator"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 15
+        versionCode 1
         versionName "V2.3.1"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         resConfigs "cn"
@@ -17,6 +25,7 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.sign
         }
     }
 }
