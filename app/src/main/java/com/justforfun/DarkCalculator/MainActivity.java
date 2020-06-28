@@ -86,20 +86,13 @@ public class MainActivity extends BaseActivity {
 
     private static final Pattern CONSTANS_KEYWORDS1 = Pattern.compile("[∞i°%πeFhћγφcNRkGΦ]");
 
-    private static final String[] FUNCTION_LIST = {"科学计算", "大数计算", "进制转换", "大写数字"};
+    private static final String[] FUNCTION_LIST = {"科学计算", "大数计算", "大写数字"};
 
     private static final String[] NUMERIC = {
             "7", "8", "9",
             "4", "5", "6",
             "1", "2", "3",
-            "·", "0", "=",
-            "A", "B", "C",
-            "D", "E", "F",
-            "⑵", "⑶", "⑷",
-            "⑸", "⑹", "⑺",
-            "⑻", "⑼", "⑽",
-            "⑾", "⑿", "⒀",
-            "⒁", "⒂", "⒃"};
+            "·", "0", "="};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -236,10 +229,10 @@ public class MainActivity extends BaseActivity {
                     case 1:
                         BigDecimalActivity.actionStart(context);
                         break;
+//                    case 2:
+//                        BaseConversionActivity.actionStart(context);
+//                        break;
                     case 2:
-                        BaseConversionActivity.actionStart(context);
-                        break;
-                    case 3:
                         CapitalMoneyActivity.actionStart(context);
                         break;
                     default:
@@ -271,7 +264,7 @@ public class MainActivity extends BaseActivity {
                                 }).show();
                         return;
                     }
-                    outText.setTextColor(0xffbdbdbd);
+                    outText.setTextColor(0xffff0000);
                     stateText.setText("运算中...");
                     calcThread = new Calc(inText.getText().toString());
                     calcThread.start();
@@ -493,7 +486,7 @@ public class MainActivity extends BaseActivity {
     private void setGodMode(boolean isGodMode) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         ActionBar actionBar = getSupportActionBar();
-        godMenuItem.setChecked(isGodMode);
+//        godMenuItem.setChecked(isGodMode);
         if (isGodMode) {
             actionBar.setDisplayHomeAsUpEnabled(false);
             drawer.setVisibility(View.GONE);
@@ -523,21 +516,53 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private MenuItem godMenuItem;
+//    private MenuItem godMenuItem;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        boolean isGodMode = preferences.getBoolean("godMode", false);
-        godMenuItem = menu.add("上帝输入").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//        boolean isGodMode = preferences.getBoolean("godMode", false);
+//        godMenuItem = menu.add("上帝输入").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                boolean isGodMode = !item.isChecked();
+//                preferences.edit().putBoolean("godMode", isGodMode).apply();
+//                setGodMode(isGodMode);
+//                return true;
+//            }
+//        }).setCheckable(true).setChecked(isGodMode);
+//        setGodMode(false);
+        menu.add("今日天气").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                boolean isGodMode = !item.isChecked();
-                preferences.edit().putBoolean("godMode", isGodMode).apply();
-                setGodMode(isGodMode);
+//                Intent intent = new Intent(); //Intent
+//                intent = new Intent(Intent.ACTION_VIEW,uri);
+//                intent.setAction("android.intent.action.VIEW");
+//                Uri content_url = Uri.parse("此处填链接");
+//                intent.setData(content_url); startActivity(intent);
                 return true;
             }
-        }).setCheckable(true).setChecked(isGodMode);
-        setGodMode(isGodMode);
+        });
+        menu.add("热门铃声").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                PrivacyActivity.actionStart(context);
+                return true;
+            }
+        });
+        menu.add("隐私协议").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                PrivacyActivity.actionStart(context);
+                return true;
+            }
+        });
+        menu.add("隐私协议").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                PrivacyActivity.actionStart(context);
+                return true;
+            }
+        });
 
         menu.add("帮助").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
@@ -547,6 +572,13 @@ public class MainActivity extends BaseActivity {
                         .setMessage(R.string.app_help)
                         .setPositiveButton("确定", null)
                         .show();
+                return true;
+            }
+        });
+        menu.add("隐私协议").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                PrivacyActivity.actionStart(context);
                 return true;
             }
         });
