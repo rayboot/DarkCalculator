@@ -478,9 +478,9 @@ public class MainActivity extends BaseActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle(null);
-        toolbar.setSubtitle("科学计算");
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        actionBar.setTitle("科学计算");
     }
 
     private void setGodMode(boolean isGodMode) {
@@ -530,25 +530,19 @@ public class MainActivity extends BaseActivity {
 //                return true;
 //            }
 //        }).setCheckable(true).setChecked(isGodMode);
-//        setGodMode(false);
-        menu.add("今日天气").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-//                Intent intent = new Intent(); //Intent
-//                intent = new Intent(Intent.ACTION_VIEW,uri);
-//                intent.setAction("android.intent.action.VIEW");
-//                Uri content_url = Uri.parse("此处填链接");
-//                intent.setData(content_url); startActivity(intent);
-                return true;
-            }
-        });
-        menu.add("热门铃声").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                PrivacyActivity.actionStart(context);
-                return true;
-            }
-        });
+        setGodMode(false);
+//        menu.add("今日天气").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                return true;
+//            }
+//        });
+//        menu.add("热门铃声").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                return true;
+//            }
+//        });
         menu.add("帮助").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
