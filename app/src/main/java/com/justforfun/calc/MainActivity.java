@@ -637,9 +637,9 @@ public class MainActivity extends BaseActivity {
         context.startActivity(new Intent(context, MainActivity.class));
     }
 
-    String updateInfoUrl = "https://api.bq04.com/apps/latest/5ef85d7123389f2b42fb78c5?api_token=c848b757cc666baf315362bd4daec4b7";
-    String getDownloadUrl = "https://api.bq04.com/apps/5ef85d7123389f2b42fb78c5/download_token?api_token=c848b757cc666baf315362bd4daec4b7";
-    String downloadUrl = "http://download.bq04.com/apps/5ef85d7123389f2b42fb78c5/install?api_token=c848b757cc666baf315362bd4daec4b7&download_token=";
+    String updateInfoUrl = "https://api.bq04.com/apps/latest/5ef99745b2eb46784beca2a4?api_token=c848b757cc666baf315362bd4daec4b7";
+    String getDownloadUrl = "https://api.bq04.com/apps/5ef99745b2eb46784beca2a4/download_token?api_token=c848b757cc666baf315362bd4daec4b7";
+    String downloadUrl = "http://download.bq04.com/apps/5ef99745b2eb46784beca2a4/install?api_token=c848b757cc666baf315362bd4daec4b7&download_token=";
 
     UpdateAppHttpUtil httpUtil = new UpdateAppHttpUtil();
 
