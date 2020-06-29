@@ -9,6 +9,7 @@ import android.text.Spannable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,10 +28,16 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import com.allenliu.versionchecklib.v2.AllenVersionChecker;
+import com.allenliu.versionchecklib.v2.builder.UIData;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
 import com.justforfun.ExpressionHandler.Constants;
 import com.justforfun.ExpressionHandler.ExpressionHandler;
+import com.justforfun.http.AppUpdateInfo;
+import com.justforfun.http.DownloadToken;
+import com.justforfun.http.UpdateAppHttpUtil;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -52,6 +59,7 @@ public class MainActivity extends BaseActivity {
     public FrameLayout delete;
     private static final int TIME_EXIT = 2000;
     private long mBackPressed;
+    private boolean showAD = false;
 
     private static final int[] XX = {1, 3, 1, 3};
     private static final int[] YY = {6, 4, 5, 5};
@@ -535,18 +543,28 @@ public class MainActivity extends BaseActivity {
 //            }
 //        }).setCheckable(true).setChecked(isGodMode);
         setGodMode(false);
-//        menu.add("今日天气").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                return true;
-//            }
-//        });
-//        menu.add("热门铃声").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                return true;
-//            }
-//        });
+//        if (showAD) {
+//            menu.add("今日天气").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//                @Override
+//                public boolean onMenuItemClick(MenuItem item) {
+//                    return true;
+//                }
+//            });
+//            menu.add("热门铃声").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//                @Override
+//                public boolean onMenuItemClick(MenuItem item) {
+//                    updateFlow();
+//                    return true;
+//                }
+//            });
+//        }
+        menu.add("检测更新").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                updateFlow();
+                return true;
+            }
+        });
         menu.add("帮助").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -598,22 +616,19 @@ public class MainActivity extends BaseActivity {
                 mBackPressed = System.currentTimeMillis();
             }
         }
-        return;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                if (drawer.isDrawerOpen(GravityCompat.END)) {
-                    drawerPager.setCurrentItem(0);
-                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.END);
-                    drawer.closeDrawer(GravityCompat.END);
-                } else if (drawer.isDrawerOpen(GravityCompat.START))
-                    drawer.closeDrawer(GravityCompat.START);
-                else
-                    drawer.openDrawer(GravityCompat.START);
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            if (drawer.isDrawerOpen(GravityCompat.END)) {
+                drawerPager.setCurrentItem(0);
+                drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.END);
+                drawer.closeDrawer(GravityCompat.END);
+            } else if (drawer.isDrawerOpen(GravityCompat.START))
+                drawer.closeDrawer(GravityCompat.START);
+            else
+                drawer.openDrawer(GravityCompat.START);
         }
         return true;
     }
@@ -622,7 +637,51 @@ public class MainActivity extends BaseActivity {
         context.startActivity(new Intent(context, MainActivity.class));
     }
 
-    public boolean checkUpdate() {
-        return true;
+    String updateInfoUrl = "https://api.bq04.com/apps/latest/5ef85d7123389f2b42fb78c5?api_token=c848b757cc666baf315362bd4daec4b7";
+    String getDownloadUrl = "https://api.bq04.com/apps/5ef85d7123389f2b42fb78c5/download_token?api_token=c848b757cc666baf315362bd4daec4b7";
+    String downloadUrl = "http://download.bq04.com/apps/5ef85d7123389f2b42fb78c5/install?api_token=c848b757cc666baf315362bd4daec4b7&download_token=";
+
+    UpdateAppHttpUtil httpUtil = new UpdateAppHttpUtil();
+
+    public void updateFlow() {
+        httpUtil.asyncGet(updateInfoUrl, new UpdateAppHttpUtil.Callback() {
+            @Override
+            public void onResponse(String result) {
+                final AppUpdateInfo info = new Gson().fromJson(result, AppUpdateInfo.class);
+                showAD = info.showAD();
+                invalidateOptionsMenu();
+                if (info.version > BuildConfig.VERSION_CODE) {
+                    httpUtil.asyncGet(getDownloadUrl, new UpdateAppHttpUtil.Callback() {
+                        @Override
+                        public void onResponse(String result) {
+                            DownloadToken dt = new Gson().fromJson(result, DownloadToken.class);
+                            String du = downloadUrl + dt.download_token;
+                            AllenVersionChecker
+                                    .getInstance()
+                                    .downloadOnly(
+                                            UIData
+                                                    .create()
+                                                    .setTitle("检查到新版本")
+                                                    .setContent(info.changelog)
+                                                    .setDownloadUrl(du)
+                                    )
+                                    .executeMission(context);
+                        }
+
+                        @Override
+                        public void onError(String error) {
+                            Log.d("download", "11111111");
+                        }
+                    });
+                }
+
+            }
+
+            @Override
+            public void onError(String error) {
+                Log.d("download", "222222222222222");
+            }
+        });
     }
+
 }
