@@ -674,8 +674,9 @@ public class MainActivity extends BaseActivity {
                             Log.d("download", "11111111");
                         }
                     });
+                } else {
+//                    Toast.makeText(context, "已是最新版本", Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
