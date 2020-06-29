@@ -123,6 +123,7 @@ public class MainActivity extends BaseActivity {
         initNumeric();
         initOperator();
         initFunction();
+        updateFlow();
     }
 
     private void initDelete() {
@@ -543,21 +544,21 @@ public class MainActivity extends BaseActivity {
 //            }
 //        }).setCheckable(true).setChecked(isGodMode);
         setGodMode(false);
-//        if (showAD) {
-//            menu.add("今日天气").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//                @Override
-//                public boolean onMenuItemClick(MenuItem item) {
-//                    return true;
-//                }
-//            });
-//            menu.add("热门铃声").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//                @Override
-//                public boolean onMenuItemClick(MenuItem item) {
-//                    updateFlow();
-//                    return true;
-//                }
-//            });
-//        }
+        if (showAD) {
+            menu.add("今日天气").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    return true;
+                }
+            });
+            menu.add("热门铃声").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    updateFlow();
+                    return true;
+                }
+            });
+        }
         menu.add("检测更新").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
