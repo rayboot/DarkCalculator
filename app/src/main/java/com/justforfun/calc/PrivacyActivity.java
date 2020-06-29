@@ -1,4 +1,4 @@
-package com.justforfun.DarkCalculator;
+package com.justforfun.calc;
 
 import android.content.Context;
 import android.content.Intent;
