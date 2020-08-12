@@ -2,48 +2,53 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.justforfun.calc">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.justforfun.calc.SplashActivity"
+            android:name=".SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.justforfun.calc.MainActivity"
+            android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name="com.justforfun.calc.ResultsActivity"
+            android:name=".ResultsActivity"
             android:label="运算结果" />
         <activity
-            android:name="com.justforfun.calc.CapitalMoneyActivity"
+            android:name=".CapitalMoneyActivity"
             android:label="大写数字"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.justforfun.calc.BigDecimalActivity"
+            android:name=".BigDecimalActivity"
             android:label="大数运算"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.justforfun.calc.BaseConversionActivity"
+            android:name=".BaseConversionActivity"
             android:label="进制转换"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.justforfun.calc.AboutActivity"
+            android:name=".AboutActivity"
             android:label="关于"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.justforfun.calc.PrivacyActivity"
+            android:name=".PrivacyActivity"
             android:label="隐私协议"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".UserPrivacyActivity"
+            android:label="@string/title_activity_user_privacy"
+            android:screenOrientation="portrait" />
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
