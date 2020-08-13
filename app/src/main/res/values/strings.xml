@@ -55,6 +55,7 @@ c) 通过计算器所设cookies所取得的有关信息，将适用本政策。
     <string name="title_activity_privacy">隐私协议</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="dialog_tip">欢迎您使用“快算计算器”，我们依据法律法规、监管要求，更新了快算计算器《用户协议》和《隐私协议》，请您认证阅读。我们非常尊重并保护用户的个人信息和隐私，在您使用快算计算器提供的服务时，我们将按照隐私协议的规定进行产品服务，您同意接受全部条款后方可开始使用快算计算器。</string>
     <string name="user_privacy">
 用户协议\n\n
 【提示条款】\n\n
