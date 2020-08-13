@@ -43,6 +43,7 @@ public class SplashActivity extends BaseActivity {
         boolean agreed = sharedPreferences.getBoolean("agree", false);
         if (!agreed) {
             tipDiagram.show(getSupportFragmentManager(), "dialog");
+            tipDiagram.setCancelable(false);
         } else {
             timerFlow();
         }
