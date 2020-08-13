@@ -577,6 +577,13 @@ public class MainActivity extends BaseActivity {
                 return true;
             }
         });
+        menu.add("用户协议").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                UserPrivacyActivity.actionStart(context);
+                return true;
+            }
+        });
         menu.add("隐私协议").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
