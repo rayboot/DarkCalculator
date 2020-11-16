@@ -3,6 +3,7 @@ package com.justforfun.calc;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Spannable;
@@ -551,13 +552,18 @@ public class MainActivity extends BaseActivity {
 //                    return true;
 //                }
 //            });
-//            menu.add("热门铃声").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//                @Override
-//                public boolean onMenuItemClick(MenuItem item) {
-//                    updateFlow();
-//                    return true;
-//                }
-//            });
+        menu.add("热门铃声").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                //从其他浏览器打开
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                Uri content_url = Uri.parse("https://iring.diyring.cc/friend/9ea019bbb41600c7");
+                intent.setData(content_url);
+                startActivity(Intent.createChooser(intent, "请选择浏览器"));
+                return true;
+            }
+        });
 //        }
         menu.add("检测更新").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
