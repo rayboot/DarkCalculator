@@ -33,16 +33,6 @@ class WebActivity : BaseActivity() {
         webView.loadUrl(intent.getStringExtra("url"))
     }
 
-    override fun onPause() {
-        super.onPause()
-        webView.onPause()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        webView.onResume()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         //webview停止加载
@@ -54,4 +44,15 @@ class WebActivity : BaseActivity() {
         //webview清理历史记录
         webView.clearHistory()
     }
+
+    override fun onBackPressed() {
+        //点击返回键返回url的上一个页面，而不是返回app中的上个页面
+        if (webView.canGoBack()) {
+            // goBack()表示返回WebView的上一页面
+            webView.goBack()
+            return
+        }
+        super.onBackPressed()
+    }
+
 }
