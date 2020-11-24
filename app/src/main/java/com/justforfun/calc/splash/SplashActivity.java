@@ -1,10 +1,15 @@
-package com.justforfun.calc;
+package com.justforfun.calc.splash;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import com.justforfun.calc.BaseActivity;
+import com.justforfun.calc.MainActivity;
+import com.justforfun.calc.R;
+import com.justforfun.calc.TipDiagram;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -27,7 +32,7 @@ public class SplashActivity extends BaseActivity {
                 tipDiagram.dismiss();
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean("agree", true);
-                editor.commit();
+                editor.apply();
                 timerFlow();
             }
 

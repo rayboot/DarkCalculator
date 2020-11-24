@@ -4,10 +4,12 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="40dp"
     android:layout_marginRight="40dp"
+    android:background="@drawable/splash_diagram_bg"
     android:orientation="vertical"
-    android:paddingLeft="36dp"
+    android:paddingLeft="16dp"
+    android:paddingBottom="10dp"
     android:paddingTop="20dp"
-    android:paddingRight="36dp">
+    android:paddingRight="16dp">
 
 
     <TextView
@@ -15,30 +17,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="4dp"
         android:layout_weight="1"
-        android:textColor="@android:color/background_dark"
+        android:text="温馨提示"
+        android:textColor="@android:color/white"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:text="温馨提示" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tv_tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
         android:text="@string/dialog_tip"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@android:color/white"
+        android:textSize="15sp" />
 
     <Button
         android:id="@+id/btn_yes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_weight="1"
-        android:background="@drawable/corner_btn"
+        android:background="@drawable/guide_round_btn"
         android:text="同意"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/btn_no"
@@ -46,5 +50,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@android:color/transparent"
-        android:text="不同意" />
+        android:text="不同意"
+        android:textColor="#999999" />
 </LinearLayout>
