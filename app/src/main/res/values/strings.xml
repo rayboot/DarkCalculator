@@ -132,4 +132,8 @@ c) 通过计算器所设cookies所取得的有关信息，将适用本政策。
     <string name="title_activity_guide">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_main_tab">MainActivity</string>
+    <string name="menu_calc">计算</string>
+    <string name="menu_memo">备忘</string>
+    <string name="menu_more">更多</string>
 </resources>

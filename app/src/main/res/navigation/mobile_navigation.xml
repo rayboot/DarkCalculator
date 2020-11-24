@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_calc">
+
+    <fragment
+        android:id="@+id/navigation_calc"
+        android:name="com.justforfun.calc.main.ui.calc.CalcFragment"
+        android:label="@string/menu_calc"
+        tools:layout="@layout/fragment_memo" />
+
+    <fragment
+        android:id="@+id/navigation_memo"
+        android:name="com.justforfun.calc.main.ui.memo.MemoFragment"
+        android:label="@string/menu_memo"
+        tools:layout="@layout/fragment_calc" />
+
+    <fragment
+        android:id="@+id/navigation_more"
+        android:name="com.justforfun.calc.main.ui.more.MoreFragment"
+        android:label="@string/menu_more"
+        tools:layout="@layout/fragment_more" />
+</navigation>
