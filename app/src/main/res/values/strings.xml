@@ -136,4 +136,7 @@ c) 通过计算器所设cookies所取得的有关信息，将适用本政策。
     <string name="menu_calc">计算</string>
     <string name="menu_memo">备忘</string>
     <string name="menu_more">更多</string>
+    <string name="title_activity_big_decimal">大数计算器</string>
+    <string name="title_activity_capital_money">大写转换</string>
+    <string name="title_activity_calc">CalcActivity</string>
 </resources>
