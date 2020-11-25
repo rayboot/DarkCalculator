@@ -3,20 +3,78 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
     android:layout_height="match_parent"
     tools:context=".main.ui.calc.CalcFragment">
 
     <TextView
-        android:id="@+id/text_dashboard"
+        android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="10dp"
+        android:text="欢迎来到快算计算器！"
+        android:textAlignment="textStart"
+        android:textColor="@color/colorWhite"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="10dp"
+        android:text="我可以计算天体运行的轨道，却无法计算人性的疯狂。"
+        android:textAlignment="textStart"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+    <com.justforfun.calc.main.ui.EnterViewV2
+        android:id="@+id/enter_calc_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:bg="@drawable/enter_bg_1"
+        app:desc="支持复数运算和解方程"
+        app:img="@mipmap/main_calc_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_desc"
+        app:text="科学计算器" />
+
+    <com.justforfun.calc.main.ui.EnterViewV2
+        android:id="@+id/enter_calc_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:bg="@drawable/enter_bg_2"
+        app:desc="超长大数高精度运算"
+        app:img="@mipmap/main_calc_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enter_calc_1"
+        app:text="大数计算" />
+
+    <com.justforfun.calc.main.ui.EnterViewV2
+        android:id="@+id/enter_calc_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:bg="@drawable/enter_bg_3"
+        app:desc="数字转换为大写中文"
+        app:img="@mipmap/main_calc_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enter_calc_2"
+        app:text="大写数字转换" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

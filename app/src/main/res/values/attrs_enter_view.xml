@@ -1,0 +1,14 @@
+<resources>
+    <declare-styleable name="EnterView">
+        <attr name="exampleString" format="string" />
+        <attr name="exampleDimension" format="dimension" />
+        <attr name="exampleColor" format="color" />
+        <attr name="exampleDrawable" format="color|reference" />
+
+
+        <attr name="text" format="string" />
+        <attr name="desc" format="string" />
+        <attr name="bg" format="color|reference" />
+        <attr name="img" format="color|reference" />
+    </declare-styleable>
+</resources>
