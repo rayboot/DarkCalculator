@@ -7,12 +7,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import com.justforfun.calc.BaseActivity
 import com.justforfun.calc.R
 
 
-class BigResultActivity : AppCompatActivity() {
+class BigResultActivity : BaseActivity() {
     lateinit var tv_res: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

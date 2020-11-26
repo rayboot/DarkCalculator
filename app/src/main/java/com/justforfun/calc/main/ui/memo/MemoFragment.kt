@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.justforfun.calc.R
+import com.justforfun.calc.memo.MemoActivity
 
 class MemoFragment : Fragment() {
 
@@ -20,6 +21,10 @@ class MemoFragment : Fragment() {
         memoViewModel =
                 ViewModelProvider(this).get(MemoViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_memo, container, false)
+        root.findViewById<View>(R.id.enter_memo_1)
+                .setOnClickListener {
+                    MemoActivity.actionStart(requireContext())
+                }
 //        val textView: TextView = root.findViewById(R.id.text_home)
 //        memoViewModel.text.observe(viewLifecycleOwner, Observer {
 //            textView.text = it

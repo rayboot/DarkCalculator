@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.justforfun.calc.R
+import com.justforfun.calc.calc.big.BigDecimalActivity
+import com.justforfun.calc.calc.capital.CapitalMoneyActivity
+import com.justforfun.calc.calc.normal.CalcActivity
 
 class CalcFragment : Fragment() {
 
@@ -20,10 +23,17 @@ class CalcFragment : Fragment() {
         calcViewModel =
                 ViewModelProvider(this).get(CalcViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_calc, container, false)
-//        val textView: TextView = root.findViewById(R.id.text_dashboard)
-//        calcViewModel.text.observe(viewLifecycleOwner, Observer {
-//            textView.text = it
-//        })
+
+        root.findViewById<View>(R.id.enter_calc_1).setOnClickListener {
+            CalcActivity.actionStart(requireContext())
+        }
+        root.findViewById<View>(R.id.enter_calc_2).setOnClickListener {
+            BigDecimalActivity.actionStart(requireContext())
+        }
+        root.findViewById<View>(R.id.enter_calc_3).setOnClickListener {
+            CapitalMoneyActivity.actionStart(requireContext())
+        }
+
         return root
     }
 }

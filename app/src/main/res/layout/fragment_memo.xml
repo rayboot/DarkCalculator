@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.justforfun.calc.main.ui.EnterViewV2
-        android:id="@+id/enter_calc_1"
+        android:id="@+id/enter_memo_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
