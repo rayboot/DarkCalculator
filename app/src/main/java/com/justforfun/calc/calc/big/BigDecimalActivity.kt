@@ -1,5 +1,7 @@
 package com.justforfun.calc.calc.big
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -7,15 +9,20 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.justforfun.calc.R
-import com.justforfun.calc.ResultsActivity
 import java.math.BigDecimal
 
 class BigDecimalActivity : AppCompatActivity() {
 
+    companion object {
+        fun actionStart(context: Context, results: String?) {
+            val intent = Intent(context, BigDecimalActivity::class.java)
+            context.startActivity(intent)
+        }
+    }
+
     lateinit var etInput1: EditText
     lateinit var etInput2: EditText
     lateinit var btns: List<Button>
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,20 +65,20 @@ class BigDecimalActivity : AppCompatActivity() {
         }
         when (selBtn.id) {
             R.id.btn_plus -> {
-                ResultsActivity.actionStart(this, a1.add(b2).toString())
+                BigResultActivity.actionStart(this, a1.add(b2).toString())
             }
             R.id.btn_minus -> {
-                ResultsActivity.actionStart(this, a1.subtract(b2).toString())
+                BigResultActivity.actionStart(this, a1.subtract(b2).toString())
             }
             R.id.btn_multi -> {
-                ResultsActivity.actionStart(this, a1.multiply(b2).toString())
+                BigResultActivity.actionStart(this, a1.multiply(b2).toString())
             }
             R.id.btn_div -> {
                 if (b2.toDouble() == 0.0) {
                     Snackbar.make(v, "除数不能为零", Snackbar.LENGTH_SHORT).show()
                     return
                 }
-                ResultsActivity.actionStart(this, a1.divide(b2, 100000, BigDecimal.ROUND_HALF_UP).toString())
+                BigResultActivity.actionStart(this, a1.divide(b2, 100000, BigDecimal.ROUND_HALF_UP).toString())
             }
         }
     }
