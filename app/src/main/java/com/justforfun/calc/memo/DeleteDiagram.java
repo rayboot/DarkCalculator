@@ -21,6 +21,13 @@ public class DeleteDiagram extends DialogFragment {
     private Button btnNo;
     private View contentView;
     private onItemClickListener onItemClickListener;
+    private String mTitle;
+    private String mTip;
+
+    DeleteDiagram(String title, String tip) {
+        this.mTitle = title;
+        this.mTip = tip;
+    }
 
     @Nullable
     @Override
@@ -35,6 +42,9 @@ public class DeleteDiagram extends DialogFragment {
         btnNo = contentView.findViewById(R.id.btn_no);
         tvTitle = contentView.findViewById(R.id.tv_title);
         tvDesc = contentView.findViewById(R.id.tv_tip);
+
+        tvTitle.setText(mTitle);
+        tvDesc.setText(mTip);
 
         //绑定监听事件
         btnYes.setOnClickListener(new View.OnClickListener() {
@@ -65,11 +75,4 @@ public class DeleteDiagram extends DialogFragment {
         this.onItemClickListener = onItemClickListener;
     }
 
-    public void setTitle(String title) {
-        tvTitle.setText(title);
-    }
-
-    public void setTip(String tip) {
-        tvDesc.setText(tip);
-    }
 }

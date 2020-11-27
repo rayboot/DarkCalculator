@@ -59,9 +59,7 @@ class MemoActivity : BaseActivity(), MemoItemClick {
         rv_content.itemAnimator = DefaultItemAnimator()
 
 
-        delDiagram = DeleteDiagram()
-        delDiagram.setTitle("提示")
-        delDiagram.setTip("是否确认删除此条备忘?")
+        delDiagram = DeleteDiagram("提示", "是否确认删除此条备忘?")
         delDiagram.setOnItemClickListener(object : DeleteDiagram.onItemClickListener {
             override fun onYesClick(v: View) {
                 if (delId != 0L) {
