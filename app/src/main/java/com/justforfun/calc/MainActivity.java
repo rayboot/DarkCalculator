@@ -9,7 +9,6 @@ import android.text.Spannable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,16 +27,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
-import com.allenliu.versionchecklib.v2.AllenVersionChecker;
-import com.allenliu.versionchecklib.v2.builder.UIData;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
-import com.google.gson.Gson;
 import com.justforfun.ExpressionHandler.Constants;
 import com.justforfun.ExpressionHandler.ExpressionHandler;
-import com.justforfun.http.AppUpdateInfo;
-import com.justforfun.http.DownloadToken;
-import com.justforfun.http.UpdateAppHttpUtil;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -123,7 +116,6 @@ public class MainActivity extends BaseActivity {
         initNumeric();
         initOperator();
         initFunction();
-        updateFlow();
     }
 
     private void initDelete() {
@@ -563,7 +555,7 @@ public class MainActivity extends BaseActivity {
         menu.add("检测更新").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                updateFlow();
+//                updateFlow();
                 return true;
             }
         });
@@ -646,52 +638,5 @@ public class MainActivity extends BaseActivity {
         context.startActivity(new Intent(context, MainActivity.class));
     }
 
-    String updateInfoUrl = "https://api.bq04.com/apps/latest/5ef99745b2eb46784beca2a4?api_token=c848b757cc666baf315362bd4daec4b7";
-    String getDownloadUrl = "https://api.bq04.com/apps/5ef99745b2eb46784beca2a4/download_token?api_token=c848b757cc666baf315362bd4daec4b7";
-    String downloadUrl = "http://download.bq04.com/apps/5ef99745b2eb46784beca2a4/install?api_token=c848b757cc666baf315362bd4daec4b7&download_token=";
-
-    UpdateAppHttpUtil httpUtil = new UpdateAppHttpUtil();
-
-    public void updateFlow() {
-        httpUtil.asyncGet(updateInfoUrl, new UpdateAppHttpUtil.Callback() {
-            @Override
-            public void onResponse(String result) {
-                final AppUpdateInfo info = new Gson().fromJson(result, AppUpdateInfo.class);
-                showAD = info.showAD();
-                invalidateOptionsMenu();
-                if (info.version > BuildConfig.VERSION_CODE) {
-                    httpUtil.asyncGet(getDownloadUrl, new UpdateAppHttpUtil.Callback() {
-                        @Override
-                        public void onResponse(String result) {
-                            DownloadToken dt = new Gson().fromJson(result, DownloadToken.class);
-                            String du = downloadUrl + dt.download_token;
-                            AllenVersionChecker
-                                    .getInstance()
-                                    .downloadOnly(
-                                            UIData
-                                                    .create()
-                                                    .setTitle("检查到新版本")
-                                                    .setContent(info.changelog)
-                                                    .setDownloadUrl(du)
-                                    )
-                                    .executeMission(context);
-                        }
-
-                        @Override
-                        public void onError(String error) {
-                            Log.d("download", "11111111");
-                        }
-                    });
-                } else {
-//                    Toast.makeText(context, "已是最新版本", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onError(String error) {
-                Log.d("download", "222222222222222");
-            }
-        });
-    }
 
 }

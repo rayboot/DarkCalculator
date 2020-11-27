@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -14,6 +15,8 @@ import androidx.fragment.app.DialogFragment;
 import com.justforfun.calc.R;
 
 public class DeleteDiagram extends DialogFragment {
+    private TextView tvTitle;
+    private TextView tvDesc;
     private Button btnYes;
     private Button btnNo;
     private View contentView;
@@ -30,6 +33,8 @@ public class DeleteDiagram extends DialogFragment {
         }
         btnYes = contentView.findViewById(R.id.btn_yes);
         btnNo = contentView.findViewById(R.id.btn_no);
+        tvTitle = contentView.findViewById(R.id.tv_title);
+        tvDesc = contentView.findViewById(R.id.tv_tip);
 
         //绑定监听事件
         btnYes.setOnClickListener(new View.OnClickListener() {
@@ -58,5 +63,13 @@ public class DeleteDiagram extends DialogFragment {
 
     public void setOnItemClickListener(DeleteDiagram.onItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+    }
+
+    public void setTitle(String title) {
+        tvTitle.setText(title);
+    }
+
+    public void setTip(String tip) {
+        tvDesc.setText(tip);
     }
 }
