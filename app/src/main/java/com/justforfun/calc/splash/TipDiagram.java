@@ -1,5 +1,7 @@
-package com.justforfun.calc;
+package com.justforfun.calc.splash;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -16,11 +18,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.justforfun.calc.PrivacyActivity;
+import com.justforfun.calc.R;
+import com.justforfun.calc.UserPrivacyActivity;
+
 public class TipDiagram extends DialogFragment {
     private TextView tvTip;
     private Button btnYes;
     private Button btnNo;
-    private View mRootView;
+    private View contentView;
     private onItemClickListener onItemClickListener;
 
     private void avoidHintColor(View view) {
@@ -31,13 +37,15 @@ public class TipDiagram extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         //对话框的布局
-        if (mRootView == null) {
-            mRootView = inflater.inflate(R.layout.dialog_user_tip, container, false);
+        contentView = super.onCreateView(inflater, container, savedInstanceState);
+        if (contentView == null) {
+            contentView = inflater.inflate(R.layout.dialog_user_tip, container, false);
         }
-        tvTip = mRootView.findViewById(R.id.tv_tip);
-        btnYes = mRootView.findViewById(R.id.btn_yes);
-        btnNo = mRootView.findViewById(R.id.btn_no);
+        tvTip = contentView.findViewById(R.id.tv_tip);
+        btnYes = contentView.findViewById(R.id.btn_yes);
+        btnNo = contentView.findViewById(R.id.btn_no);
 
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
@@ -90,7 +98,7 @@ public class TipDiagram extends DialogFragment {
                 onItemClickListener.onNoClick(v);
             }
         });
-        return mRootView;
+        return contentView;
     }
 
     //监听事件接口

@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.justforfun.calc.BaseActivity;
 import com.justforfun.calc.MainActivity;
 import com.justforfun.calc.R;
-import com.justforfun.calc.TipDiagram;
 
 import java.util.Timer;
 import java.util.TimerTask;

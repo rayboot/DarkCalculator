@@ -26,6 +26,8 @@ class MemoActivity : BaseActivity(), MemoItemClick {
     lateinit var rv_content: RecyclerView
     var mData = mutableListOf<Memo>()
     lateinit var adapter: MemoAdapter
+    lateinit var delDiagram: DeleteDiagram
+    var delId = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,9 +57,24 @@ class MemoActivity : BaseActivity(), MemoItemClick {
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_content.layoutManager = layoutManager
         rv_content.itemAnimator = DefaultItemAnimator()
-    }
 
-    private fun loadData() {
+
+        delDiagram = DeleteDiagram()
+        delDiagram.setOnItemClickListener(object : DeleteDiagram.onItemClickListener {
+            override fun onYesClick(v: View) {
+                if (delId != 0L) {
+                    MemoDbProvider.instance.deleteData(delId)
+                    refresh()
+                }
+                delId = 0L
+                delDiagram.dismiss()
+            }
+
+            override fun onNoClick(v: View) {
+                delId = 0
+                delDiagram.dismiss()
+            }
+        })
     }
 
     fun onClickAdd(v: View) {
@@ -71,7 +88,9 @@ class MemoActivity : BaseActivity(), MemoItemClick {
     }
 
     override fun onLongClick(id: Long) {
-        // 删除
+        delId = id
+        delDiagram.show(supportFragmentManager, "dialog")
+        delDiagram.isCancelable = true
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
