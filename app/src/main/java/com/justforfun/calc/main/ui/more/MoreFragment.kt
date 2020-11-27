@@ -11,10 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.allenliu.versionchecklib.v2.AllenVersionChecker
 import com.allenliu.versionchecklib.v2.builder.UIData
 import com.google.gson.Gson
-import com.justforfun.calc.AboutActivity
-import com.justforfun.calc.PrivacyActivity
-import com.justforfun.calc.R
-import com.justforfun.calc.UserPrivacyActivity
+import com.justforfun.calc.*
 import com.justforfun.calc.WebActivity.Companion.actionStart
 import com.justforfun.http.AppUpdateInfo
 import com.justforfun.http.DownloadToken
@@ -73,8 +70,7 @@ class MoreFragment : Fragment() {
         httpUtil.asyncGet(updateInfoUrl, object : UpdateAppHttpUtil.Callback {
             override fun onResponse(result: String) {
                 val info = Gson().fromJson(result, AppUpdateInfo::class.java)
-//                if (info.version > BuildConfig.VERSION_CODE) {
-                if (info.version > 1) {
+                if (info.version > BuildConfig.VERSION_CODE) {
                     httpUtil.asyncGet(getDownloadUrl, object : UpdateAppHttpUtil.Callback {
                         override fun onResponse(result: String) {
                             val dt = Gson().fromJson(result, DownloadToken::class.java)
