@@ -13,6 +13,7 @@
         android:paddingLeft="20dp"
         android:paddingTop="8dp"
         android:paddingRight="20dp"
+        app:layout_anchor="@+id/constraintLayout"
         app:layout_anchorGravity="center"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -26,6 +27,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_date"
@@ -93,6 +102,6 @@
         android:tint="@color/colorWhite"
         app:backgroundTint="#FFB000"
         app:rippleColor="#FF9800"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@mipmap/save" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

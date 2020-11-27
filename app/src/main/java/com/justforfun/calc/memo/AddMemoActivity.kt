@@ -1,6 +1,6 @@
 package com.justforfun.calc.memo
 
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -15,12 +15,12 @@ import com.justforfun.calc.memo.db.MemoDbProvider
 class AddMemoActivity : BaseActivity() {
 
     companion object {
-        fun actionStart(context: Context, id: Long? = null, content: String? = null, date: Long? = null) {
+        fun actionStart(context: Activity, id: Long? = null, content: String? = null, date: Long? = null) {
             val intent = Intent(context, AddMemoActivity::class.java)
             intent.putExtra("memo_id", id)
             intent.putExtra("memo_content", content)
             intent.putExtra("memo_date", date)
-            context.startActivity(intent)
+            context.startActivityForResult(intent, 1)
         }
     }
 
@@ -31,6 +31,7 @@ class AddMemoActivity : BaseActivity() {
     var mId: Long = 0
     var mDate: Long = 0
     var mContent: String? = ""
+    var orgContent: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +45,7 @@ class AddMemoActivity : BaseActivity() {
         mId = intent.getLongExtra("memo_id", 0)
         mDate = intent.getLongExtra("memo_date", System.currentTimeMillis())
         mContent = intent.getStringExtra("memo_content")
+        orgContent = mContent
         if (mId > 0) {
             et_content.setText(mContent)
         }
@@ -58,6 +60,12 @@ class AddMemoActivity : BaseActivity() {
         }
         MemoDbProvider.instance.insertData(mId, mContent!!, mDate)
         Snackbar.make(v, "保存成功", Snackbar.LENGTH_SHORT).show()
+
+        if (orgContent != mContent) {
+            val data = Intent()
+            data.putExtra("change", true)
+            setResult(RESULT_OK, data)
+        }
         finish()
     }
 }
