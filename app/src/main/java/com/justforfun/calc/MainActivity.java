@@ -16,7 +16,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
@@ -540,12 +539,12 @@ public class MainActivity extends BaseActivity {
 //        } else if (drawer.isDrawerOpen(GravityCompat.START)) {
 //            drawer.closeDrawer(GravityCompat.START);
 //        } else {
-        if (mBackPressed + TIME_EXIT > System.currentTimeMillis()) {
-            super.onBackPressed();
-        } else {
-            Toast.makeText(this, "再点击一次返回退出程序", Toast.LENGTH_SHORT).show();
-            mBackPressed = System.currentTimeMillis();
-        }
+//        if (mBackPressed + TIME_EXIT > System.currentTimeMillis()) {
+        super.onBackPressed();
+//        } else {
+//            Toast.makeText(this, "再点击一次返回退出程序", Toast.LENGTH_SHORT).show();
+//            mBackPressed = System.currentTimeMillis();
+//        }
 //        }
     }
 //
