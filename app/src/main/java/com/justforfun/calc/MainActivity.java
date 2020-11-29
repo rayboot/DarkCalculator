@@ -111,31 +111,31 @@ public class MainActivity extends BaseActivity {
 //        initFunction();
     }
 
-    private void initDelete() {
+//    private void initDelete() {
 //        delete = (FrameLayout) findViewById(R.id.delete);
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Editable editable = inText.getText();
-                int index = inText.getSelectionStart();
-                int index2 = inText.getSelectionEnd();
-                if (index == index2) {
-                    if (index == 0) return;
-                    editable.delete(index - 1, index);
-                } else {
-                    editable.delete(index, index2);
-                }
-            }
-        });
-        delete.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                ExpressionHandler.stop();
-                inText.setText(null);
-                return true;
-            }
-        });
-    }
+//        delete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Editable editable = inText.getText();
+//                int index = inText.getSelectionStart();
+//                int index2 = inText.getSelectionEnd();
+//                if (index == index2) {
+//                    if (index == 0) return;
+//                    editable.delete(index - 1, index);
+//                } else {
+//                    editable.delete(index, index2);
+//                }
+//            }
+//        });
+//        delete.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                ExpressionHandler.stop();
+//                inText.setText(null);
+//                return true;
+//            }
+//        });
+//    }
 
     private void initTextView() {
         stateText = (TextView) findViewById(R.id.text_state);

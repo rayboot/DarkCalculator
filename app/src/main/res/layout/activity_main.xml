@@ -20,7 +20,6 @@
             android:background="?attr/colorPrimary" />
 
         <FrameLayout
-            android:background="@android:color/holo_blue_bright"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -31,7 +30,6 @@
                 android:layout_marginBottom="54dp"
                 android:layout_marginTop="30dp"
                 android:focusable="false"
-                android:background="@android:color/holo_red_dark"
                 android:fontFamily="sans-serif-light"
                 android:gravity="center_vertical|end"
                 android:inputType="textNoSuggestions|textMultiLine"

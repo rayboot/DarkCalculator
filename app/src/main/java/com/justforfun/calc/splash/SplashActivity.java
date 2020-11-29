@@ -1,13 +1,14 @@
 package com.justforfun.calc.splash;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.justforfun.calc.BaseActivity;
-import com.justforfun.calc.MainActivity;
+import com.justforfun.calc.MainTabActivity;
 import com.justforfun.calc.R;
 
 import java.util.Timer;
@@ -18,6 +19,10 @@ public class SplashActivity extends BaseActivity {
     private TextView skip;
     private TipDiagram tipDiagram;
     private SharedPreferences sharedPreferences;
+
+    public static void actionStart(Context context) {
+        context.startActivity(new Intent(context, SplashActivity.class));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +63,7 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 timer.cancel();
-                MainActivity.actionStart(context);
+                MainTabActivity.Companion.actionStart(context);
                 SplashActivity.this.finish();
             }
         });
@@ -87,7 +92,7 @@ public class SplashActivity extends BaseActivity {
                         skip.setText("跳过（" + (secondLeft + 1) + ")");
                         if (secondLeft < 0) {
                             timer.cancel();
-                            MainActivity.actionStart(context);
+                            MainTabActivity.Companion.actionStart(context);
                             SplashActivity.this.finish();
                         }
                     }

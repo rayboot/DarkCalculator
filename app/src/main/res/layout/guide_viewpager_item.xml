@@ -60,6 +60,7 @@
             android:background="@drawable/guide_round_btn"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/sp20"
+            android:onClick="onSkipGuide"
             android:text="开始体验" />
 
     </LinearLayout>

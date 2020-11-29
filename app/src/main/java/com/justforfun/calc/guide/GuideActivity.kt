@@ -1,12 +1,16 @@
 package com.justforfun.calc.guide
 
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.viewpager2.widget.ViewPager2
+import com.justforfun.calc.BuildConfig
 import com.justforfun.calc.R
+import com.justforfun.calc.splash.SplashActivity
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -15,6 +19,8 @@ import com.justforfun.calc.R
 class GuideActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager2
     private val hideHandler = Handler()
+
+    private lateinit var sharedPreferences: SharedPreferences
 
     @SuppressLint("InlinedApi")
     private val hidePart2Runnable = Runnable {
@@ -46,6 +52,13 @@ class GuideActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_guide)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        sharedPreferences = getSharedPreferences("data", MODE_PRIVATE)
+
+        val show = sharedPreferences.getBoolean("${BuildConfig.VERSION_CODE}-guide", true)
+
+        if (!show) {
+            onSkipGuide(null)
+        }
 
         isFullscreen = true
 
@@ -59,6 +72,15 @@ class GuideActivity : AppCompatActivity() {
 //            setCurrentItem(0, true)
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {})
         }
+    }
+
+    fun onSkipGuide(v: View?) {
+        sharedPreferences.edit {
+            this.putBoolean("${BuildConfig.VERSION_CODE}-guide", false)
+            this.apply()
+        }
+        finish()
+        SplashActivity.actionStart(this)
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
