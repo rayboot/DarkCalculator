@@ -9,8 +9,6 @@ import android.text.Spannable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -23,14 +21,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
 import com.justforfun.ExpressionHandler.Constants;
 import com.justforfun.ExpressionHandler.ExpressionHandler;
+import com.justforfun.calc.calc.normal.NumAdapter;
+import com.justforfun.calc.calc.normal.OptAdapter;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -46,19 +42,16 @@ public class MainActivity extends BaseActivity {
     private EditText inText;
     private TextView stateText;
     private TextView outText;
-    private ViewPager drawerPager;
-    private DrawerLayout drawer;
     private ArrayList<View> drawerPageList;
     public FrameLayout delete;
     private static final int TIME_EXIT = 2000;
     private long mBackPressed;
-    private boolean showAD = false;
 
     private static final int[] XX = {1, 3, 1, 3};
     private static final int[] YY = {6, 4, 5, 5};
 
-    private static final String[] OPERATOR = {"÷", "×", "-", "+", "%", ",", "i"};
-    private static final String[] OPERATOR_VICE = {"√", "^", "!", "()", "°", "∞", "x"};
+    private static final String[] OPERATOR = {"C", "÷", "×", "-", "+", "%", ",", "i"};
+    private static final String[] OPERATOR_VICE = {"ac", "√", "^", "!", "()", "°", "∞", "x"};
 
     private static final String[][] BUTTON = {
             {"sqrt", "cbrt", "root", "rand", "randInt", "abs", "lg", "ln", "log",
@@ -108,18 +101,18 @@ public class MainActivity extends BaseActivity {
         initToolBar();
         initEditText();
         initTextView();
-        initDrawer();
-        initPages();
-        initTabs();
-        initDelete();
-        initSideBar();
+//        initDrawer();
+//        initPages();
+//        initTabs();
+//        initDelete();
+//        initSideBar();
         initNumeric();
         initOperator();
-        initFunction();
+//        initFunction();
     }
 
     private void initDelete() {
-        delete = (FrameLayout) findViewById(R.id.delete);
+//        delete = (FrameLayout) findViewById(R.id.delete);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,137 +164,151 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    private void initDrawer() {
-        drawer = (DrawerLayout) findViewById(R.id.drawer_main);
-        findViewById(R.id.drawer_right).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawer.openDrawer(GravityCompat.END);
-            }
-        });
-    }
+//    private void initDrawer() {
+//        drawer = (DrawerLayout) findViewById(R.id.drawer_main);
+//        findViewById(R.id.drawer_right).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                drawer.openDrawer(GravityCompat.END);
+//            }
+//        });
+//    }
 
-    private void initTabs() {
-        TabLayout tabs = (TabLayout) findViewById(R.id.tabs_main);
-        tabs.setupWithViewPager(drawerPager);
-        tabs.getTabAt(0).setText("函数");
-        tabs.getTabAt(1).setText("常数");
-    }
+//    private void initTabs() {
+//        TabLayout tabs = (TabLayout) findViewById(R.id.tabs_main);
+//        tabs.setupWithViewPager(drawerPager);
+//        tabs.getTabAt(0).setText("函数");
+//        tabs.getTabAt(1).setText("常数");
+//    }
 
-    private void initPages() {
-        drawerPageList = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            GridView gridView = new GridView(this);
-            drawerPageList.add(gridView);
-        }
+//    private void initPages() {
+//        drawerPageList = new ArrayList<>();
+//        for (int i = 0; i < 2; i++) {
+//            GridView gridView = new GridView(this);
+//            drawerPageList.add(gridView);
+//        }
+//
+//        drawerPager = (ViewPager) findViewById(R.id.viewPager_drawer);
+//        MainPagerAdapter drawerPagerAdapter = new MainPagerAdapter(drawerPageList);
+//        drawerPager.setAdapter(drawerPagerAdapter);
+//        drawerPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//                if (position == 0) {
+//                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.END);
+//                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.START);
+//                } else {
+//                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN, GravityCompat.END);
+//                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.START);
+//                }
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
+//
+//    }
 
-        drawerPager = (ViewPager) findViewById(R.id.viewPager_drawer);
-        MainPagerAdapter drawerPagerAdapter = new MainPagerAdapter(drawerPageList);
-        drawerPager.setAdapter(drawerPagerAdapter);
-        drawerPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (position == 0) {
-                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.END);
-                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.START);
-                } else {
-                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN, GravityCompat.END);
-                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.START);
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-    }
-
-    private void initSideBar() {
-        final GridView sideBar = (GridView) findViewById(R.id.sideBar);
-        sideBar.setNumColumns(XX[0]);
-        sideBar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
-                        break;
-                    case 1:
-                        BigDecimalActivity.actionStart(context);
-                        break;
-//                    case 2:
-//                        BaseConversionActivity.actionStart(context);
+//    private void initSideBar() {
+//        final GridView sideBar = (GridView) findViewById(R.id.sideBar);
+//        sideBar.setNumColumns(XX[0]);
+//        sideBar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                switch (position) {
+//                    case 0:
 //                        break;
-                    case 2:
-                        CapitalMoneyActivity.actionStart(context);
-                        break;
-                    default:
-                        Snackbar.make(sideBar, "功能还未完善", Snackbar.LENGTH_SHORT).show();
-                }
-                drawer.closeDrawer(GravityCompat.START);
-            }
-        });
-        GridViewAdapter sideBarAdapter = new GridViewAdapter(sideBar, Arrays.asList(FUNCTION_LIST),
-                null, R.layout.button_sidebar, YY[0]);
-        sideBar.setAdapter(sideBarAdapter);
-    }
+//                    case 1:
+//                        BigDecimalActivity.actionStart(context);
+//                        break;
+////                    case 2:
+////                        BaseConversionActivity.actionStart(context);
+////                        break;
+//                    case 2:
+//                        CapitalMoneyActivity.actionStart(context);
+//                        break;
+//                    default:
+//                        Snackbar.make(sideBar, "功能还未完善", Snackbar.LENGTH_SHORT).show();
+//                }
+//                drawer.closeDrawer(GravityCompat.START);
+//            }
+//        });
+//        GridViewAdapter sideBarAdapter = new GridViewAdapter(sideBar, Arrays.asList(FUNCTION_LIST),
+//                null, R.layout.button_sidebar, YY[0]);
+//        sideBar.setAdapter(sideBarAdapter);
+//    }
 
     private void initNumeric() {
         GridView numericBar = (GridView) findViewById(R.id.bar_numeric);
         numericBar.setNumColumns(XX[1]);
-        numericBar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String str = position == 9 ? "." : NUMERIC[position];
-                if (str.equals("=")) {
-                    if (calcThread != null) {
-                        Snackbar.make(view, "请等待当前运算完成", Snackbar.LENGTH_SHORT)
-                                .setAction("停止运算", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        ExpressionHandler.stop();
-                                    }
-                                }).show();
-                        return;
-                    }
-                    outText.setTextColor(0xffff0000);
-                    stateText.setText("运算中...");
-                    calcThread = new Calc(inText.getText().toString());
-                    calcThread.start();
+        numericBar.setOnItemClickListener((parent, view, position, id) -> {
+            String str = position == 9 ? "." : NUMERIC[position];
+            if (str.equals("=")) {
+                if (calcThread != null) {
+                    Snackbar.make(view, "请等待当前运算完成", Snackbar.LENGTH_SHORT)
+                            .setAction("停止运算", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    ExpressionHandler.stop();
+                                }
+                            }).show();
                     return;
                 }
-                modifyInText(str);
+                outText.setTextColor(0xffff0000);
+                stateText.setText("运算中...");
+                calcThread = new Calc(inText.getText().toString());
+                calcThread.start();
+                return;
             }
+            modifyInText(str);
         });
-        GridViewAdapter numericAdapter = new GridViewAdapter(numericBar, Arrays.asList(NUMERIC),
-                null, R.layout.button_numeric, YY[1]);
+        NumAdapter numericAdapter = new NumAdapter(Arrays.asList(NUMERIC));
         numericBar.setAdapter(numericAdapter);
     }
 
     private void initOperator() {
         GridView operatorBar = (GridView) findViewById(R.id.bar_operator);
         operatorBar.setNumColumns(XX[2]);
-        operatorBar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String str = position == 0 ? "/" : OPERATOR[position];
-                modifyInText(position == 1 ? "•" : str);
+        operatorBar.setOnItemClickListener((parent, view, position, id) -> {
+
+            if (position == 0) {
+                // 清除上一个
+                Editable editable = inText.getText();
+                int index = inText.getSelectionStart();
+                int index2 = inText.getSelectionEnd();
+                if (index == index2) {
+                    if (index == 0) return;
+                    editable.delete(index - 1, index);
+                } else {
+                    editable.delete(index, index2);
+                }
+                return;
             }
+
+            String str = position == 1 ? "/" : OPERATOR[position];
+            modifyInText(position == 2 ? "•" : str);
         });
         operatorBar.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                if (position == 0) {
+                    // 全部清空
+                    ExpressionHandler.stop();
+                    inText.setText(null);
+                    return true;
+                }
                 modifyInText(OPERATOR_VICE[position]);
                 return true;
             }
         });
-        GridViewAdapter operatorAdapter = new GridViewAdapter(operatorBar, Arrays.asList(OPERATOR),
-                Arrays.asList(OPERATOR_VICE), R.layout.button_operator, YY[2]);
+        OptAdapter operatorAdapter = new OptAdapter(Arrays.asList(OPERATOR), Arrays.asList(OPERATOR_VICE));
         operatorBar.setAdapter(operatorAdapter);
     }
 
@@ -484,7 +491,8 @@ public class MainActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         setTitle(null);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         actionBar.setTitle("科学计算");
     }
 
@@ -494,7 +502,7 @@ public class MainActivity extends BaseActivity {
 //        godMenuItem.setChecked(isGodMode);
         if (isGodMode) {
             actionBar.setDisplayHomeAsUpEnabled(false);
-            drawer.setVisibility(View.GONE);
+//            drawer.setVisibility(View.GONE);
             Class<EditText> cls = EditText.class;
             Method method;
             try {
@@ -507,7 +515,7 @@ public class MainActivity extends BaseActivity {
             imm.showSoftInput(inText, InputMethodManager.SHOW_FORCED);
         } else {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            drawer.setVisibility(View.VISIBLE);
+//            drawer.setVisibility(View.VISIBLE);
             Class<EditText> cls = EditText.class;
             Method method;
             try {
@@ -524,115 +532,37 @@ public class MainActivity extends BaseActivity {
 //    private MenuItem godMenuItem;
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-//        boolean isGodMode = preferences.getBoolean("godMode", false);
-//        godMenuItem = menu.add("上帝输入").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                boolean isGodMode = !item.isChecked();
-//                preferences.edit().putBoolean("godMode", isGodMode).apply();
-//                setGodMode(isGodMode);
-//                return true;
-//            }
-//        }).setCheckable(true).setChecked(isGodMode);
-        setGodMode(false);
-//        if (showAD) {
-//            menu.add("今日天气").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//                @Override
-//                public boolean onMenuItemClick(MenuItem item) {
-//                    return true;
-//                }
-//            });
-        menu.add("热门铃声").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                //从其他浏览器打开
-                WebActivity.Companion.actionStart(context, "热门铃声", "https://iring.diyring.cc/friend/9ea019bbb41600c7");
-                return true;
-            }
-        });
-//        }
-        menu.add("检测更新").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-//                updateFlow();
-                return true;
-            }
-        });
-        menu.add("帮助").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-                dialog.setTitle("帮助")
-                        .setMessage(R.string.app_help)
-                        .setPositiveButton("确定", null)
-                        .show();
-                return true;
-            }
-        });
-        menu.add("用户协议").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                UserPrivacyActivity.actionStart(context);
-                return true;
-            }
-        });
-        menu.add("隐私协议").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                PrivacyActivity.actionStart(context);
-                return true;
-            }
-        });
-        menu.add("关于").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                AboutActivity.actionStart(context);
-                return true;
-            }
-        });
-        menu.add("退出").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                finish();
-                return true;
-            }
-        });
-        return true;
-    }
-
-    @Override
     public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.END)) {
-            drawerPager.setCurrentItem(0);
-            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.END);
-            drawer.closeDrawer(GravityCompat.END);
-        } else if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+//        if (drawer.isDrawerOpen(GravityCompat.END)) {
+//            drawerPager.setCurrentItem(0);
+//            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.END);
+//            drawer.closeDrawer(GravityCompat.END);
+//        } else if (drawer.isDrawerOpen(GravityCompat.START)) {
+//            drawer.closeDrawer(GravityCompat.START);
+//        } else {
+        if (mBackPressed + TIME_EXIT > System.currentTimeMillis()) {
+            super.onBackPressed();
         } else {
-            if (mBackPressed + TIME_EXIT > System.currentTimeMillis()) {
-                super.onBackPressed();
-            } else {
-                Toast.makeText(this, "再点击一次返回退出程序", Toast.LENGTH_SHORT).show();
-                mBackPressed = System.currentTimeMillis();
-            }
+            Toast.makeText(this, "再点击一次返回退出程序", Toast.LENGTH_SHORT).show();
+            mBackPressed = System.currentTimeMillis();
         }
+//        }
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            if (drawer.isDrawerOpen(GravityCompat.END)) {
-                drawerPager.setCurrentItem(0);
-                drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.END);
-                drawer.closeDrawer(GravityCompat.END);
-            } else if (drawer.isDrawerOpen(GravityCompat.START))
-                drawer.closeDrawer(GravityCompat.START);
-            else
-                drawer.openDrawer(GravityCompat.START);
-        }
-        return true;
-    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        if (item.getItemId() == android.R.id.home) {
+//            if (drawer.isDrawerOpen(GravityCompat.END)) {
+//                drawerPager.setCurrentItem(0);
+//                drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.END);
+//                drawer.closeDrawer(GravityCompat.END);
+//            } else if (drawer.isDrawerOpen(GravityCompat.START))
+//                drawer.closeDrawer(GravityCompat.START);
+//            else
+//                drawer.openDrawer(GravityCompat.START);
+//        }
+//        return true;
+//    }
 
     public static void actionStart(Context context) {
         context.startActivity(new Intent(context, MainActivity.class));

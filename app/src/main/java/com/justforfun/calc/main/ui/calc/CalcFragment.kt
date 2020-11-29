@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.justforfun.calc.MainActivity
 import com.justforfun.calc.R
 import com.justforfun.calc.calc.big.BigDecimalActivity
 import com.justforfun.calc.calc.capital.CapitalMoneyActivity
-import com.justforfun.calc.calc.normal.CalcActivity
 
 class CalcFragment : Fragment() {
 
@@ -25,7 +25,7 @@ class CalcFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_calc, container, false)
 
         root.findViewById<View>(R.id.enter_calc_1).setOnClickListener {
-            CalcActivity.actionStart(requireContext())
+            MainActivity.actionStart(requireContext())
         }
         root.findViewById<View>(R.id.enter_calc_2).setOnClickListener {
             BigDecimalActivity.actionStart(requireContext())

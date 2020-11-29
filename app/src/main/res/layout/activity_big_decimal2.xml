@@ -80,7 +80,7 @@
                 android:layout_marginRight="8dp"
                 android:background="@drawable/round_calc_btn"
                 android:onClick="onClickOpt"
-                android:text="/"
+                android:text="÷"
                 android:textColor="@color/colorWhite"
                 android:textSize="30sp" />
 
@@ -93,13 +93,12 @@
                 android:layout_marginRight="8dp"
                 android:background="@drawable/round_calc_btn"
                 android:onClick="onClickOpt"
-                android:text="X"
+                android:text="×"
                 android:textColor="@color/colorWhite"
                 android:textSize="30sp" />
 
             <Button
                 android:id="@+id/btn_minus"
-
                 android:layout_width="54dp"
                 android:layout_height="54dp"
                 android:layout_marginLeft="8dp"
