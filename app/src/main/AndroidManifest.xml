@@ -45,7 +45,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".splash.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -53,7 +52,7 @@
             android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
         <activity
             android:name=".ResultsActivity"
             android:label="运算结果" />

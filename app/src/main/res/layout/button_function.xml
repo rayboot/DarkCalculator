@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#bdbdbd"
-    android:foreground="?android:attr/selectableItemBackground">
-
-    <TextView
-        android:id="@+id/text_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:fontFamily="sans-serif-light"
-        android:textColor="#212121"
-        android:textSize="24sp" />
+    android:orientation="vertical"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    android:gravity="center">
 
     <TextView
         android:id="@+id/text_vice_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:paddingRight="12dp"
-        android:paddingTop="6dp"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="12sp" />
+        android:gravity="center"
+        android:textColor="#66ffffff"
+        android:text="11111"
+        android:textSize="14sp" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/text_item"
+        android:layout_marginTop="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/colorWhite"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-light"
+        android:text="22222"
+        android:textSize="30sp" />
+
+</LinearLayout>

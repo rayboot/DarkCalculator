@@ -12,6 +12,7 @@
         android:id="@+id/bar_numeric"
         android:layout_width="0px"
         android:layout_height="match_parent"
+        android:scrollbars="none"
         android:layout_weight="1"
         android:background="@android:color/transparent" />
 
@@ -20,6 +21,9 @@
         android:layout_width="70dp"
         android:layout_height="match_parent"
         android:background="@drawable/common_bg_4"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        android:scrollbars="none"
         android:paddingTop="20dp"
         android:paddingBottom="20dp" />
 

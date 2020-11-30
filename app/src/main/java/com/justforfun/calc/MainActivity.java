@@ -9,6 +9,7 @@ import android.text.Spannable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -21,14 +22,16 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
 import com.justforfun.ExpressionHandler.Constants;
 import com.justforfun.ExpressionHandler.ExpressionHandler;
+import com.justforfun.calc.calc.normal.FuncAdapter;
 import com.justforfun.calc.calc.normal.NumAdapter;
 import com.justforfun.calc.calc.normal.OptAdapter;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,11 +43,13 @@ public class MainActivity extends BaseActivity {
     private Toolbar toolbar;
     private EditText inText;
     private TextView stateText;
+    private TextView sloganText;
     private TextView outText;
-    private ArrayList<View> drawerPageList;
     public FrameLayout delete;
-    private static final int TIME_EXIT = 2000;
-    private long mBackPressed;
+    private BottomSheetDialog diagram;
+    private GridView gv;
+    private BottomSheetBehavior mDialogBehavior;
+    private FuncAdapter funcAdapter;
 
     private static final int[] XX = {1, 3, 1, 3};
     private static final int[] YY = {6, 4, 5, 5};
@@ -100,41 +105,62 @@ public class MainActivity extends BaseActivity {
         initToolBar();
         initEditText();
         initTextView();
-//        initDrawer();
-//        initPages();
-//        initTabs();
-//        initDelete();
-//        initSideBar();
         initNumeric();
         initOperator();
-//        initFunction();
+        initBottomSheet();
     }
 
-//    private void initDelete() {
-//        delete = (FrameLayout) findViewById(R.id.delete);
-//        delete.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Editable editable = inText.getText();
-//                int index = inText.getSelectionStart();
-//                int index2 = inText.getSelectionEnd();
-//                if (index == index2) {
-//                    if (index == 0) return;
-//                    editable.delete(index - 1, index);
-//                } else {
-//                    editable.delete(index, index2);
-//                }
-//            }
-//        });
-//        delete.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                ExpressionHandler.stop();
-//                inText.setText(null);
-//                return true;
-//            }
-//        });
-//    }
+    private void initBottomSheet() {
+        View view = LayoutInflater.from(this).inflate(R.layout.diagram_bottomsheet, null);
+
+        gv = view.findViewById(R.id.gv_content);
+        gv.setNumColumns(3);
+        gv.setOnTouchListener((v, event) -> {
+            //canScrollVertically(-1)的值表示是否能向下滚动，false表示已经滚动到顶部
+            gv.requestDisallowInterceptTouchEvent(gv.canScrollVertically(-1));
+            return false;
+        });
+
+        gv.setOnItemClickListener((parent, view12, position, id) -> {
+            int tag = (int) gv.getTag();
+            if (tag == 0) {
+                modifyInText((BUTTON[0][position].equals("gamma") ? "Γ" : BUTTON[0][position]) + "()");
+            } else {
+                modifyInText(BUTTON[1][position]);
+            }
+        });
+
+        gv.setOnItemLongClickListener((parent, view1, position, id) -> {
+
+            int tag = (int) gv.getTag();
+            if (tag == 0) {
+                String text = BUTTON[0][position];
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                dialog.setTitle(text);
+                dialog.setMessage(HelpUtil.getFunctionHelp(text));
+                dialog.setPositiveButton("确定", null);
+                dialog.show();
+            }
+            return true;
+        });
+
+        diagram = new BottomSheetDialog(this);
+        diagram.setContentView(view);
+        mDialogBehavior = BottomSheetBehavior.from((View) view.getParent());
+        mDialogBehavior.setPeekHeight(getPeekHeight());
+    }
+
+    /**
+     * 弹窗高度，默认为屏幕高度的四分之三
+     * 子类可重写该方法返回peekHeight
+     *
+     * @return height
+     */
+    protected int getPeekHeight() {
+        int peekHeight = getResources().getDisplayMetrics().heightPixels;
+        //设置弹窗高度为屏幕高度的3/4
+        return peekHeight - peekHeight / 3;
+    }
 
     private void initTextView() {
         stateText = (TextView) findViewById(R.id.text_state);
@@ -162,86 +188,6 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
-
-//    private void initDrawer() {
-//        drawer = (DrawerLayout) findViewById(R.id.drawer_main);
-//        findViewById(R.id.drawer_right).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                drawer.openDrawer(GravityCompat.END);
-//            }
-//        });
-//    }
-
-//    private void initTabs() {
-//        TabLayout tabs = (TabLayout) findViewById(R.id.tabs_main);
-//        tabs.setupWithViewPager(drawerPager);
-//        tabs.getTabAt(0).setText("函数");
-//        tabs.getTabAt(1).setText("常数");
-//    }
-
-//    private void initPages() {
-//        drawerPageList = new ArrayList<>();
-//        for (int i = 0; i < 2; i++) {
-//            GridView gridView = new GridView(this);
-//            drawerPageList.add(gridView);
-//        }
-//
-//        drawerPager = (ViewPager) findViewById(R.id.viewPager_drawer);
-//        MainPagerAdapter drawerPagerAdapter = new MainPagerAdapter(drawerPageList);
-//        drawerPager.setAdapter(drawerPagerAdapter);
-//        drawerPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//            @Override
-//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//            }
-//
-//            @Override
-//            public void onPageSelected(int position) {
-//                if (position == 0) {
-//                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.END);
-//                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.START);
-//                } else {
-//                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN, GravityCompat.END);
-//                    drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.START);
-//                }
-//            }
-//
-//            @Override
-//            public void onPageScrollStateChanged(int state) {
-//
-//            }
-//        });
-//
-//    }
-
-//    private void initSideBar() {
-//        final GridView sideBar = (GridView) findViewById(R.id.sideBar);
-//        sideBar.setNumColumns(XX[0]);
-//        sideBar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                switch (position) {
-//                    case 0:
-//                        break;
-//                    case 1:
-//                        BigDecimalActivity.actionStart(context);
-//                        break;
-////                    case 2:
-////                        BaseConversionActivity.actionStart(context);
-////                        break;
-//                    case 2:
-//                        CapitalMoneyActivity.actionStart(context);
-//                        break;
-//                    default:
-//                        Snackbar.make(sideBar, "功能还未完善", Snackbar.LENGTH_SHORT).show();
-//                }
-//                drawer.closeDrawer(GravityCompat.START);
-//            }
-//        });
-//        GridViewAdapter sideBarAdapter = new GridViewAdapter(sideBar, Arrays.asList(FUNCTION_LIST),
-//                null, R.layout.button_sidebar, YY[0]);
-//        sideBar.setAdapter(sideBarAdapter);
-//    }
 
     private void initNumeric() {
         GridView numericBar = (GridView) findViewById(R.id.bar_numeric);
@@ -309,48 +255,6 @@ public class MainActivity extends BaseActivity {
         });
         OptAdapter operatorAdapter = new OptAdapter(Arrays.asList(OPERATOR), Arrays.asList(OPERATOR_VICE));
         operatorBar.setAdapter(operatorAdapter);
-    }
-
-    private void initFunction() {
-        int i = 0;
-        for (View view : drawerPageList) {
-            GridView operatorProBar = (GridView) view;
-            operatorProBar.setNumColumns(XX[3]);
-
-            if (i == 0) {
-                operatorProBar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        modifyInText((BUTTON[0][position].equals("gamma") ? "Γ" : BUTTON[0][position]) + "()");
-                    }
-                });
-
-                operatorProBar.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                        String text = BUTTON[0][position];
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-                        dialog.setTitle(text);
-                        dialog.setMessage(HelpUtil.getFunctionHelp(text));
-                        dialog.setPositiveButton("确定", null);
-                        dialog.show();
-                        return true;
-                    }
-                });
-            } else {
-                operatorProBar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        modifyInText(BUTTON[1][position]);
-                    }
-                });
-            }
-            int id = i == 0 ? R.layout.button_function : R.layout.button_constant;
-            GridViewAdapter operatorProAdapter = new GridViewAdapter(operatorProBar,
-                    Arrays.asList(BUTTON[i++]), Arrays.asList(BUTTON_VICE[i - 1]), id, YY[3]);
-
-            operatorProBar.setAdapter(operatorProAdapter);
-        }
     }
 
     private void modifyInText(String str) {
@@ -439,6 +343,7 @@ public class MainActivity extends BaseActivity {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
+            // 计算是一种 别具匠心的艺术
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (TextUtils.isEmpty(s)) {
@@ -447,8 +352,11 @@ public class MainActivity extends BaseActivity {
                     outText.setTextColor(0xffbdbdbd);
                     outText.setText(null);
                     rootValue = null;
+
+                    sloganText.setVisibility(View.VISIBLE);
                     return;
                 }
+                sloganText.setVisibility(View.GONE);
 
                 if (calcThread == null) {
                     stateText.setText("运算中...");
@@ -487,12 +395,30 @@ public class MainActivity extends BaseActivity {
 
     private void initToolBar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        sloganText = (TextView) findViewById(R.id.tv_slogan);
         setSupportActionBar(toolbar);
         setTitle(null);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-//        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         actionBar.setTitle("科学计算");
+        sloganText.setVisibility(View.VISIBLE);
+
+        findViewById(R.id.tv_const).setOnClickListener(v -> {
+            gv.setTag(1);
+            funcAdapter = new FuncAdapter(Arrays.asList(BUTTON[1]), Arrays.asList(BUTTON_VICE[1]));
+            gv.setAdapter(funcAdapter);
+            funcAdapter.notifyDataSetChanged();
+            diagram.show();
+        });
+
+        findViewById(R.id.tv_func).setOnClickListener(v -> {
+            gv.setTag(0);
+            funcAdapter = new FuncAdapter(Arrays.asList(BUTTON[0]), Arrays.asList(BUTTON_VICE[0]));
+            gv.setAdapter(funcAdapter);
+            funcAdapter.notifyDataSetChanged();
+            diagram.show();
+        });
+
     }
 
     private void setGodMode(boolean isGodMode) {
@@ -528,44 +454,12 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-//    private MenuItem godMenuItem;
-
     @Override
     public void onBackPressed() {
-//        if (drawer.isDrawerOpen(GravityCompat.END)) {
-//            drawerPager.setCurrentItem(0);
-//            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.END);
-//            drawer.closeDrawer(GravityCompat.END);
-//        } else if (drawer.isDrawerOpen(GravityCompat.START)) {
-//            drawer.closeDrawer(GravityCompat.START);
-//        } else {
-//        if (mBackPressed + TIME_EXIT > System.currentTimeMillis()) {
         super.onBackPressed();
-//        } else {
-//            Toast.makeText(this, "再点击一次返回退出程序", Toast.LENGTH_SHORT).show();
-//            mBackPressed = System.currentTimeMillis();
-//        }
-//        }
     }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        if (item.getItemId() == android.R.id.home) {
-//            if (drawer.isDrawerOpen(GravityCompat.END)) {
-//                drawerPager.setCurrentItem(0);
-//                drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.END);
-//                drawer.closeDrawer(GravityCompat.END);
-//            } else if (drawer.isDrawerOpen(GravityCompat.START))
-//                drawer.closeDrawer(GravityCompat.START);
-//            else
-//                drawer.openDrawer(GravityCompat.START);
-//        }
-//        return true;
-//    }
 
     public static void actionStart(Context context) {
         context.startActivity(new Intent(context, MainActivity.class));
     }
-
-
 }
