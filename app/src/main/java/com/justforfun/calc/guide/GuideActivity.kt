@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.viewpager2.widget.ViewPager2
@@ -21,6 +22,8 @@ class GuideActivity : AppCompatActivity() {
     private val hideHandler = Handler()
 
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var llPoint: LinearLayout
+    private lateinit var points: List<View>
 
     @SuppressLint("InlinedApi")
     private val hidePart2Runnable = Runnable {
@@ -62,6 +65,14 @@ class GuideActivity : AppCompatActivity() {
 
         isFullscreen = true
 
+        points = listOf(
+                findViewById(R.id.p1),
+                findViewById(R.id.p2),
+                findViewById(R.id.p3),
+        )
+
+        llPoint = findViewById(R.id.ll_point)
+
         viewPager = findViewById(R.id.vp)
         viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         val pagerAdapter = GuideViewPagerAdapter()
@@ -70,7 +81,14 @@ class GuideActivity : AppCompatActivity() {
 //            isUserInputEnabled = false
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
 //            setCurrentItem(0, true)
-            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {})
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    points.forEachIndexed { i, view ->
+                        view.isSelected = i == position
+                    }
+                }
+            })
         }
     }
 
