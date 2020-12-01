@@ -12,7 +12,7 @@ import com.justforfun.calc.R
 class GuideViewPagerAdapter : RecyclerView.Adapter<GuideViewPagerAdapter.ViewHolder>() {
 
     val imgs = listOf(R.mipmap.guide_img_1, R.mipmap.guide_img_2, R.mipmap.guide_img_3)
-    val listTip1 = listOf("计算", "随时记录", "我是一款支持复数运算和解方程的综合科学计")
+    val listTip1 = listOf("计算", "随时记录", "我是一款支持复数运算和解方程的综合科学计算器")
     val listTip2 = listOf("是一种别具匠心的艺术", "好记性不如烂笔头", "")
     val tip1Size = listOf(30f, 30f, 20f)
 
