@@ -24,7 +24,7 @@ public class DeleteDiagram extends DialogFragment {
     private String mTitle;
     private String mTip;
 
-    DeleteDiagram(String title, String tip) {
+    public DeleteDiagram(String title, String tip) {
         this.mTitle = title;
         this.mTip = tip;
     }

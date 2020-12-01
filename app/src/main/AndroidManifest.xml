@@ -9,6 +9,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".memo.AddMemoActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"
             android:label="记录"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

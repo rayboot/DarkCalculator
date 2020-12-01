@@ -16,7 +16,6 @@ class MainTabActivity : BaseActivity() {
         }
     }
 
-
     private var mBackPressed: Long = 0
     private val TIME_EXIT = 2000
 

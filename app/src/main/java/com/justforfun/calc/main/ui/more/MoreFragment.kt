@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.allenliu.versionchecklib.v2.AllenVersionChecker
 import com.allenliu.versionchecklib.v2.builder.UIData
 import com.google.gson.Gson
@@ -20,15 +19,11 @@ import com.justforfun.http.UpdateAppHttpUtil
 
 class MoreFragment : Fragment() {
 
-    private lateinit var moreViewModel: MoreViewModel
-
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        moreViewModel =
-                ViewModelProvider(this).get(MoreViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_more, container, false)
         root.findViewById<View>(R.id.enter_more_1).setOnClickListener {
             // 彩铃
