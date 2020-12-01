@@ -36,6 +36,7 @@ class BigDecimalActivity : BaseActivity() {
                 this.findViewById(R.id.btn_minus),
                 this.findViewById(R.id.btn_multi),
                 this.findViewById(R.id.btn_div))
+        btns[0].isSelected = true
     }
 
     fun onClickOpt(v: View) {
@@ -43,7 +44,6 @@ class BigDecimalActivity : BaseActivity() {
             it.isSelected = false
         }
         v.isSelected = true
-
     }
 
     fun onClickStartCalc(v: View) {
