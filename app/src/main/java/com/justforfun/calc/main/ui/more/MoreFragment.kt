@@ -27,7 +27,7 @@ class MoreFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_more, container, false)
         root.findViewById<View>(R.id.enter_more_1).setOnClickListener {
             // 彩铃
-            actionStart(requireContext(), "热门铃声", "https://iring.diyring.cc/friend/9ea019bbb41600c7")
+            actionStart(requireContext(), "彩铃", "https://iring.diyring.cc/friend/9ea019bbb41600c7")
         }
         root.findViewById<View>(R.id.enter_more_2).setOnClickListener {
             // 更新

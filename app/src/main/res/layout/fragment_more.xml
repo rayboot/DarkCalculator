@@ -32,7 +32,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_title"
         app:moreImg="@mipmap/more_6"
-        app:moreText="音频彩铃" />
+        app:moreText="彩铃" />
 
     <com.justforfun.calc.main.ui.MoreItemView
         android:id="@+id/enter_more_2"
