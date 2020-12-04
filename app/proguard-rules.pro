@@ -11,6 +11,10 @@
 
 # For using GSON @Expose annotation
 -keepattributes *Annotation*
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
 
 # Gson specific classes
 -keep class sun.misc.Unsafe { *; }
